@@ -1,0 +1,67 @@
+﻿@using ShopThoiTrang.Models.ViewModels
+@model CartItemViewModel 
+
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+					<li><a href="#">Home</a></li>
+					<li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description"></td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+					@if (Model.cartItems.Count > 0)
+					{
+						foreach(var item in Model.cartItems)
+						{
+							
+						<tr>
+							<td class="cart_product">
+								<a href=""><img src="~/images/@item.Image" alt=""></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">@item.ProductName</a></h4>
+							</td>
+							<td class="cart_price">
+								<p>@item.Price VNĐ</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="btn btn-primary btn-sm btn-success" asp-action="Increase" asp-controller="Cart" asp-route-id="@item.ProductId" href=""> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="@item.Quanity" autocomplete="off" size="2">
+									<a class="btn btn-primary btn-sm btn-success" asp-action="Decrease" asp-controller="Cart" asp-route-id="@item.ProductId" href=""> - </a>
+									<a class="btn btn-primary btn-sm btn-danger" asp-action="Remove" asp-controller="Cart" asp-route-id="@item.ProductId" href=""> + </a>
+
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">@Model.cartItems.Where(c => c.ProductId == item.ProductId).Sum(s => s.Price * s.Quanity)</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						}
+						<tr>
+							<td class="colspan-6">Tổng tiền: @Model.GrandTotal.ToString();</td>
+						</tr>
+					}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+	

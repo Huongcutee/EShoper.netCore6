@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.Models;
@@ -13,15 +14,21 @@ namespace ShopThoiTrang.Controllers
 
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, DataContext dataContext)
+
+	
+
+		public HomeController(ILogger<HomeController> logger, DataContext dataContext, INotyfService notifyService)
         {
             _logger = logger;
             _dataContext = dataContext;
-        }
+	
 
-        public IActionResult Index()
+		}
+
+		public IActionResult Index()
         {
-            var product = _dataContext.Products.Include("Category").Include("Brand").ToList(); 
+		
+			var product = _dataContext.Products.Include("Category").Include("Brand").ToList(); 
             return View(product);
         }
 

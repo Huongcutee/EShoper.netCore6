@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
+using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,17 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+// add toast 
+builder.Services.AddNotyf(config =>
+{
+	config.DurationInSeconds = 10;
+	config.IsDismissable = true;
+	config.Position = NotyfPosition.BottomRight;
+});
+
+
 // thiết lập thời gian tồn tại session 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(
@@ -39,6 +52,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+// sử toast 
+app.UseNotyf();
 
 app.MapControllerRoute(
     name: "default",

@@ -56,8 +56,13 @@ app.UseAuthorization();
 app.UseNotyf();
 
 app.MapControllerRoute(
+	name: "Areas",
+	pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 //Seeding Data
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();

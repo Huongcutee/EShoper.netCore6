@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProductModel>
+<a class="btn btn-default btn-group-lg" asp-action="Create" asp-controller="Product">Thêm sản phẩm mới</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Giá </th>
+            <th scope="col">Loại</th>
+            <th scope="col">Thương hiệu</th>
+            <th scope="col">Hình ảnh </th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Chỉnh sửa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+        <tr>
+            <th scope="row">@item.Id</th>
+            <td>@item.Name</td>
+            <td>@item.Price</td>
+            <td>@item.Category.Name</td>
+            <td>@item.Brand.Name</td>
+            <td><img width="120" src="~/images/@item.Images" /></td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                    <a class="btn  btn-success" asp-action="Update" asp-controller="Product">Sửa</a>
+                    |
+                    <a class="btn btn-danger" asp-action="Remove" asp-controller="Product" asp-route-id="@item.Id">Xóa</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

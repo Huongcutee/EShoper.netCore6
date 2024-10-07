@@ -5,10 +5,10 @@
         public  long ProductId { get; set; }
         public string ProductName { get; set; }
         public string Image { get; set; }
-        public int Quanity {  get; set; }
+        public int Quantity {  get; set; }
         public decimal Price { get; set; }
         public decimal PriceTotal { 
-            get {  return Price*Quanity; } 
+            get {  return Price* Quantity; } 
         }
 
         public CartItemModel()
@@ -20,7 +20,7 @@
             ProductId = product.Id;
             ProductName = product.Name;
             Price = product.Price;
-            Quanity = 1;
+            Quantity = 1;
 
         }
         

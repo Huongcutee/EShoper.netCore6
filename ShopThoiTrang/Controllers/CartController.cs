@@ -24,7 +24,7 @@ namespace ShopThoiTrang.Controllers
 			CartItemViewModel cartVM = new()
 			{
 				cartItems = cartItems,
-				GrandTotal = cartItems.Sum(x => x.Quanity * x.Price)
+				GrandTotal = cartItems.Sum(x => x.Quantity * x.Price)
 			};
 			return View(cartVM);
 		}
@@ -42,7 +42,7 @@ namespace ShopThoiTrang.Controllers
 				}
 				else
 				{
-					cartItems.Quanity += 1;
+					cartItems.Quantity += 1;
 				}
 			_notifyService.Success("Thêm giỏ hàng thành công");
 			HttpContext.Session.SetJson("Cart", cart);
@@ -61,13 +61,13 @@ namespace ShopThoiTrang.Controllers
 			{
 				if (cartItems != null)
 				{
-					if (cartItems.Quanity >= 1)
+					if (cartItems.Quantity >= 1)
 					{
-						cartItems.Quanity -= 1;
+						cartItems.Quantity -= 1;
 						_notifyService.Success("giảm số lượng sản phẩm thành công");
 						HttpContext.Session.SetJson("Cart", cart);
 
-						if(cartItems.Quanity == 0)
+						if(cartItems.Quantity == 0)
 						{
 							cart.RemoveAll(c => c.ProductId == Id);
 						}
@@ -104,7 +104,7 @@ namespace ShopThoiTrang.Controllers
 			{
 				if (cartItems != null)
 				{
-					cartItems.Quanity += 1;
+					cartItems.Quantity += 1;
 					_notifyService.Success("Tăng số lượng sản phẩm thành công");
 					HttpContext.Session.SetJson("Cart", cart);
 				}

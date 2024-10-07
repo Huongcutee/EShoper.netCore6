@@ -17,8 +17,8 @@ namespace ShopThoiTrang.Repository
 				BrandModel LapTop = new BrandModel { Name = "LapTop", Slug = "laptop", Description = "Laptop giá rẽ thích hợp cho học sinh, sinh viên chơi game học tập", Status = 1 };
                 _context.Products.AddRange(
 
-                    new ProductModel { Name = "Iphone 14 Promax", Slug = "iphone14promax ", Description = "Dòng mới nhất của nhà apple cung cấp thêm các tính năng mạng mẽ cho chụp hình và chơi game.", Images = "iphone14promax.png", Quanity = 3, Price = 100000, Category = DT, Brand = APPLE },
-                    new ProductModel { Name = "TufGaming f15", Slug = "tuff15", Description = "Hiện đại mạnh mẽ chơi được nhiều game nặng như: pubg, valorent, lol... ", Images = "tuff15.png", Quanity = 3, Price = 100000, Category = MT, Brand = LapTop }
+                    new ProductModel { Name = "Iphone 14 Promax", Slug = "iphone14promax ", Description = "Dòng mới nhất của nhà apple cung cấp thêm các tính năng mạng mẽ cho chụp hình và chơi game.", Images = "iphone14promax.png", Quantity = 3, Price = 100000, Category = DT, Brand = APPLE },
+                    new ProductModel { Name = "TufGaming f15", Slug = "tuff15", Description = "Hiện đại mạnh mẽ chơi được nhiều game nặng như: pubg, valorent, lol... ", Images = "tuff15.png", Quantity = 3, Price = 100000, Category = MT, Brand = LapTop }
                     
                 );
                 _context.SaveChanges();

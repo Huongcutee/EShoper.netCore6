@@ -44,13 +44,13 @@
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
 										<a class=""  asp-action="Decrease" asp-controller="Cart" asp-route-id="@item.ProductId"> - </a>
-										<input class="cart_quantity_input" type="text" name="quantity" typeof="" value="@item.Quanity" autocomplete="off" size="2">
+										<input class="cart_quantity_input" type="text" name="quantity" typeof="" value="@item.Quantity" autocomplete="off" size="2">
 										<a class="btn btn-success btn-sm" asp-action="Increase" asp-controller="Cart" asp-route-id="@item.ProductId"> + </a>
 										<a class="w-auto h-10" asp-action="Remove" asp-controller="Cart" asp-route-id="@item.ProductId" >Remove</a>
 									</div>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price">@Model.cartItems.Where(c => c.ProductId == item.ProductId).Sum(s => s.Price * s.Quanity)</p>
+									<p class="cart_total_price">@Model.cartItems.Where(c => c.ProductId == item.ProductId).Sum(s => s.Price * s.Quantity)</p>
 								</td>
 								<td class="cart_delete">
 									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>

@@ -3,7 +3,10 @@
 {
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h4 class="panel-title"><a asp-action="Index" asp-controller="Category" asp-route-Slug="@item.Slug" >@item.Name</a></h4>
+			<a asp-action="Index" asp-controller="Category" asp-route-Slug="@item.Slug">
+
+			<h4 class="panel-title">@item.Name</h4>
+			</a>
 		</div>
 	</div>
 }

@@ -1,0 +1,47 @@
+﻿@model CategoryModel
+@{
+    ViewData["title"] = "Tạo mới loại sản phẩm";
+}
+<h1>Thêm sản phẩm</h1>
+<div class="col-md-7">
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label for="Name">Tên:</label>
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <input width="400" asp-for="Name" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="Description">Mô tả:</label>
+            <span asp-validation-for="Description" class="text-danger"></span>
+            <textarea asp-for="Description" class="form-control" id="description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="Status">Trạng thái</label>
+            <select>
+                <option selected id="1" value="1">
+                    Còn 
+                </option>
+                <option  id="1" value="0">
+                    Hết
+                </option>
+            </select>
+        </div>
+       
+
+        <button type="submit" class="btn btn-primary">Tạo sản phẩm</button>
+    </form>
+    <a asp-action="Index">
+        Trở về
+    </a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        CKEDITOR.replace('description');
+    </script>
+}

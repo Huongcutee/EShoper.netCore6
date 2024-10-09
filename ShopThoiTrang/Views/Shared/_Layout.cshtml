@@ -19,7 +19,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="~/images/ico/apple-touch-icon-57-precomposed.png">
-
+	
 </head><!--/head-->
 <body>
 	<header id="header"><!--header-->
@@ -87,7 +87,14 @@
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a asp-action="Index" asp-controller="Cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								@if (User.Identity?.IsAuthenticated ?? false)
+								{
+									<li><a asp-action="Logout" asp-controller="Auth">Chào, @User.Identity.Name Logout</a></li>
+								}
+								else
+								{
+									<li><a asp-action="Login" asp-controller="Auth">Login</a></li>
+								}
 							</ul>
 						</div>
 					</div>
@@ -115,8 +122,15 @@
                                         <li><a href="/">Products</a></li>
 										<li><a href="checkout.html">Checkout</a></li> 
 										<li><a asp-action="Index" asp-controller="Cart" >Cart</a></li> 
-										<li><a asp-action="Index" asp-controller="Login">Login</a></li> 
-                                    </ul>
+										@if (User.Identity?.IsAuthenticated ?? false)
+										{
+											<li><a asp-action="Logout" asp-controller="Auth">Chào, @User.Identity.Name Logout</a></li>
+										}
+										else
+										{
+											<li><a asp-action="Index" asp-controller="Auth">Login</a></li>
+										}
+									</ul>
                                 </li> 
 							</ul>
 						</div>
@@ -296,7 +310,7 @@
     <script src="~/js/jquery.prettyPhoto.js"></script>
     <script src="~/js/main.js"></script>
 
-
+	@await RenderSectionAsync("Scripts", required: false)
 	@await Component.InvokeAsync("Notyf")
 
 </body>

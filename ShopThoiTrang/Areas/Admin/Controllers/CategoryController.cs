@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ using System.Net.WebSockets;
 namespace EShoper.netCore6.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize]
+
 	public class CategoryController : Controller
 	{
 		private readonly DataContext dataContext;

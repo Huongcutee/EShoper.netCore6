@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShoper.netCore6", "ShopThoiTrang\EShoper.netCore6.csproj", "{E779EEB3-291D-42E1-8EA9-7D1E65B69D4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopThoiTrang", "ShopThoiTrang\ShopThoiTrang.csproj", "{E779EEB3-291D-42E1-8EA9-7D1E65B69D4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

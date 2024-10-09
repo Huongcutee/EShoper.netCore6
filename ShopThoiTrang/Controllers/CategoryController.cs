@@ -29,10 +29,8 @@ namespace ShopThoiTrang.Controllers
 
 
 			var productsByCategory = await _datacontext.Products
-				.Where(p => p.CategoryId == category.Id)
+				.Where(p => p.CategoryId == category.Id).OrderByDescending(p => p.Id)
 				.ToListAsync(); 
-
-
 			return View(productsByCategory); 
 		}
 	}

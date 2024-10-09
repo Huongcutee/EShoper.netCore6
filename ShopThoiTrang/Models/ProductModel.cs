@@ -19,13 +19,13 @@ public class ProductModel
 
     [Required(ErrorMessage = "Vui lòng nhập số lượng sản phẩm")]
     [Range(1, int.MaxValue, ErrorMessage = "Số lượng sản phẩm phải lớn hơn 0")]
-    public int Quantity { get; set; } // Note: Fixed typo from "Quanity" to "Quantity"
+    public int Quantity { get; set; }
 
     [Required(ErrorMessage = "Vui lòng nhập giá sản phẩm")]
     [Range(1, int.MaxValue, ErrorMessage = "Giá sản phẩm phải lớn hơn 0")]
     public int Price { get; set; }
-
-    public string Images { get; set; } = "noimage.jpg";
+   
+    public string Images { get; set; }
 
     [Required(ErrorMessage = "Vui lòng chọn thương hiệu sản phẩm")]
     public int BrandId { get; set; }
@@ -37,8 +37,6 @@ public class ProductModel
     public BrandModel Brand { get; set; }
 
     [NotMapped]
-    [Required(ErrorMessage = "Please select a file.")]
-    [DataType(DataType.Upload)]
     [FileExtension(new string[] { ".jpg", ".png" })]
-    public IFormFile ImageUpload { get; set; }
+    public IFormFile? ImageUpload { get; set; }
 }

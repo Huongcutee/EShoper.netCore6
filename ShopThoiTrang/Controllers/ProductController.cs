@@ -19,20 +19,35 @@ namespace ShopThoiTrang.Controllers
 		{
 			return View(); 
 		}
-		public async Task<IActionResult> Details(int Id )
+
+		[HttpGet]
+		public async Task<IActionResult> Details(int Id)
 		{
-			if(Id == null)
+			if (Id <= 0)
 			{
+				_notifyService.Warning("Id sản phẩm không hợp lệ");
 				return RedirectToAction("Index");
 			}
-			var productById =  dataContext.Products.Where(p => p.Id == Id).FirstOrDefault();
 
-			if (productById == null)
+			try
 			{
-				return NotFound();  
-			}
+				var productById = await dataContext.Products.FirstOrDefaultAsync(p => p.Id == Id);
 
-			return View(productById);
+				if (productById == null)
+				{
+					_notifyService.Warning("Không tìm thấy sản phẩm");
+					return RedirectToAction("Index");
+				}
+
+				return View(productById);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "Lỗi khi lấy chi tiết sản phẩm");
+				_notifyService.Error("Có lỗi xảy ra khi xử lý yêu cầu");
+				return RedirectToAction("Index");
+			}
 		}
+
 	}
 }

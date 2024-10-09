@@ -1,38 +1,42 @@
 ﻿@model IEnumerable<ProductModel>
 <a class="btn btn-default btn-group-lg" asp-action="Create" asp-controller="Product">Thêm sản phẩm mới</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Tên</th>
-            <th scope="col">Giá </th>
-            <th scope="col">Loại</th>
-            <th scope="col">Thương hiệu</th>
-            <th scope="col">Hình ảnh </th>
-            <th scope="col">Mô tả</th>
-            <th scope="col">Chỉnh sửa</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var item in Model)
-        {
-        <tr>
-            <th scope="row">@item.Id</th>
-            <td>@item.Name</td>
-            <td>@item.Price</td>
-            <td>@item.Category.Name</td>
-            <td>@item.Brand.Name</td>
-            <td><img width="120" src="~/images/@item.Images" /></td>
-            <td>
-                @item.Description
-            </td>
-            <td>
-                    <a class="btn  btn-success" asp-action="Update" asp-controller="Product">Sửa</a>
-                    |
-                    <a class="btn btn-danger" asp-action="Remove" asp-controller="Product" asp-route-id="@item.Id">Xóa</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tên</th>
+                <th scope="col" class="d-none d-md-table-cell">Giá</th> <!-- Ẩn trên màn hình nhỏ -->
+                <th scope="col" class="d-none d-md-table-cell">Loại</th> <!-- Ẩn trên màn hình nhỏ -->
+                <th scope="col" class="d-none d-lg-table-cell">Thương hiệu</th> <!-- Ẩn trên màn hình nhỏ và tablet -->
+                <th scope="col" class="d-none d-lg-table-cell">Hình ảnh</th> <!-- Ẩn trên màn hình nhỏ và tablet -->
+                <th scope="col" class="d-none d-lg-table-cell">Mô tả</th> <!-- Ẩn trên màn hình nhỏ và tablet -->
+                <th scope="col">Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td class="d-none d-md-table-cell">@item.Price.ToString("C0")</td> <!-- Ẩn trên màn hình nhỏ -->
+                    <td class="d-none d-md-table-cell">@item.Category.Name</td> <!-- Ẩn trên màn hình nhỏ -->
+                    <td class="d-none d-lg-table-cell">@item.Brand.Name</td> <!-- Ẩn trên màn hình nhỏ và tablet -->
+                    <td class="d-none d-lg-table-cell">
+                        <img style="width:100px; max-height:80px;" src="~/media/products/@item.Images" />
+                    </td>
+                    <td class="d-none d-lg-table-cell">
+                        @Html.Raw(item.Description.TruncateHtml(100))
+                    </td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="Product" asp-route-id="@item.Id">Sửa</a>
+                        <a class="btn btn-danger" asp-action="Remove" asp-controller="Product" asp-route-id="@item.Id">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

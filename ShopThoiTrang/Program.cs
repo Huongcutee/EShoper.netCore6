@@ -34,6 +34,7 @@ builder.Services.AddSession(
   });
     
 var app = builder.Build();
+app.UseStatusCodePagesWithRedirects("/Home/Error?statuscode={0}");
 
 // cho sử dụng dịch vụ session 
 app.UseSession();
@@ -57,7 +58,18 @@ app.UseNotyf();
 
 app.MapControllerRoute(
 	name: "Areas",
-	pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}");
+	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "Category",
+    pattern: "category/{Slug?}",
+    defaults: new { controller = "Category", action = "Index" });
+
+app.MapControllerRoute(
+    name: "Brand",
+    pattern: "Brand/{Slug?}",
+    defaults: new { controller = "Brand", action = "Index" });
+
 
 app.MapControllerRoute(
     name: "default",

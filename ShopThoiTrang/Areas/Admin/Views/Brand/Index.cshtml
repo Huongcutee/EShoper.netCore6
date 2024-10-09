@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BrandModel>
+<a class="btn btn-default btn-group-lg" asp-action="Create" asp-controller="Brand">Thêm thương hiệu mới</a>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tên</th>
+                <th scope="col" class="d-none d-md-table-cell">Mô tả</th>
+                <th scope="col" class="d-none d-md-table-cell">miền</th>
+                <th scope="col" class="d-none d-lg-table-cell">Trạng thái</th>
+                <th scope="col">Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td>
+                        @Html.Raw(item.Description)
+                    </td>
+
+                    <td>@item.Slug</td>
+                    @if (@item.Status == 1)
+                    {
+                        <td>
+                            Còn
+                        </td>
+                    }
+                    else
+                    {
+
+                        <td>
+                            Hết
+                        </td>
+                    }
+                    <td>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="Brand" asp-route-id="@item.Id">Sửa</a>
+                        <a class="btn btn-danger" asp-action="Remove" asp-controller="Brand" asp-route-id="@item.Id">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

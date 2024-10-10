@@ -13,10 +13,7 @@
     <link href="~/css/animate.css" rel="stylesheet">
 	<link href="~/css/main.css" rel="stylesheet">
 	<link href="~/css/responsive.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
+   
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -24,6 +21,11 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 
 	<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
 
 
 </head><!--/head-->
@@ -93,7 +95,14 @@
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								@if (User.Identity?.IsAuthenticated ?? false)
+								{
+									<li><a asp-action="Logout" asp-controller="Auth">Chào, @User.Identity.Name Logout</a></li>
+								}
+								else
+								{
+									<li><a asp-action="Index" asp-controller="Auth">Login</a></li>
+								}
 							</ul>
 						</div>
 					</div>
@@ -115,16 +124,27 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/Admin" class="active">Home</a></li>
+								<li>
+									<a href="/Admin" class="active">Home</a>
+								</li>
 								<li class="dropdown">
 									<a asp-action="Index" asp-controller="Product">Sản phẩm</a>
 								</li>
-								<li class="dropdown"><a asp-action="Index" asp-controller="Category">Loại sản phẩm</i></a>
+								<li  class="dropdown">
+									<a asp-action="Index" asp-controller="Category">Loại sản phẩm</a>
                                 </li> 
 								<li class="dropdown">
                                   <a asp-action="Index" asp-controller="Brand">Thương hiệu</a>
-                                </li> 
-								<li><a href="404.html">DashBoard</a></li>
+                                </li>
+								<li class="dropdown">
+									<a asp-action="Index" asp-controller="Order">Đặt hàng</a>
+								</li> 
+								<li class="dropdown">
+									<a asp-action="Index" asp-controller="Shipping">Shipping</a>
+								</li>
+								<li  class="dropdown">
+									<a href="404.html">DashBoard</a>
+								</li>
 							</ul>
 						</div>
 					</div>

@@ -21,15 +21,5 @@ public static class StringExtensions
 
         return text.Substring(0, length) + "...";
     }
-    public static string FormatCurrency(int price)
-    {
-        // Tạo CultureInfo cho tiếng Việt
-        CultureInfo cultureInfo = new CultureInfo("vi-VN");
-
-        // Định dạng số theo kiểu tiền tệ Việt Nam
-        string formattedAmount = price.ToString("N0", cultureInfo);
-
-        // Thêm "VNĐ" vào cuối chuỗi
-        return $"{formattedAmount} VNĐ";
-    }
+    
 }

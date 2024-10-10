@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EShoper.netCore6.Repository.Validation
+namespace ShopThoiTrang.Repository.Validation
 {
     public class FileExtensionAttribute : ValidationAttribute
     {

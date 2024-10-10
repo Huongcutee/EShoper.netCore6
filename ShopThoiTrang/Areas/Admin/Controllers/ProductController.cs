@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ using ShopThoiTrang.Repository;
 namespace EShoper.netCore6.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize]
+
 	public class ProductController : Controller
 	{
 		private readonly DataContext dataContext;
@@ -32,7 +35,7 @@ namespace EShoper.netCore6.Areas.Admin.Controllers
         {
             ViewBag.Categories = new SelectList(dataContext.Categories, "Id", "Name");
             ViewBag.Brands = new SelectList(dataContext.Brands, "Id", "Name");
-            return View(new ProductModel()); // Pass an empty model to avoid null reference exceptions
+            return View(new ProductModel()); 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

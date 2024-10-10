@@ -1,16 +1,81 @@
 ﻿
-/*************************
-*******Typography******
-**************************/
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
-@import url(http://fonts.googleapis.com/css?family=Abel);
+.roboto-thin {
+	font-family: "Roboto", sans-serif;
+	font-weight: 100;
+	font-style: normal;
+}
+
+.roboto-light {
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-style: normal;
+}
+
+.roboto-regular {
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.roboto-medium {
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+	font-style: normal;
+}
+
+.roboto-bold {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-style: normal;
+}
+
+.roboto-black {
+	font-family: "Roboto", sans-serif;
+	font-weight: 900;
+	font-style: normal;
+}
+
+.roboto-thin-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 100;
+	font-style: italic;
+}
+
+.roboto-light-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-style: italic;
+}
+
+.roboto-regular-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	font-style: italic;
+}
+
+.roboto-medium-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
+	font-style: italic;
+}
+
+.roboto-bold-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-style: italic;
+}
+
+.roboto-black-italic {
+	font-family: "Roboto", sans-serif;
+	font-weight: 900;
+	font-style: italic;
+}
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
+  background:#FFF;
   position: relative;
-  font-weight:400px;
+  font-weight:400;
 }
 
 ul li {
@@ -281,7 +346,6 @@ a#scrollUp i{
   display: block;
   -webkit-animation: fadeInUp 400ms;
   -moz-animation: fadeInUp 400ms;
-  -ms-animation: fadeInUp 400ms;
   -o-animation: fadeInUp 400ms;
   animation: fadeInUp 400ms;
 }
@@ -1425,20 +1489,9 @@ h2.title {
 *******login page CSS******
 **************************/
 
-#form {
-  display: block;
-  margin-bottom: 185px;
-  margin-top: 185px;
-  overflow: hidden;
-}
 
-.login-form {
 
-}
 
-.signup-form {
-
-}
 
 .login-form h2, .signup-form h2 {
   color: #696763;
@@ -2141,7 +2194,6 @@ h2.title {
 
 .rating-area {
   border: 1px solid #F7F7F0;
-  direction: block;
   overflow: hidden;
 }
 
@@ -2519,4 +2571,46 @@ h2.title {
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
 }
+
+/*Login*/
+.centered-box {
+	width: 480px;
+	margin: 20px auto;
+	padding: 20px 5px;
+	border-radius: 20px;
+	border: 1px solid #ccc;
+}
+
+.inputLogin {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid black;
+	height: 25px;
+	outline: none;
+	background: transparent;
+}
+
+.buttonLogin button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 200px;
+	height: 50px;
+	border-radius: 16px 0px;
+	border: 1px solid #221f20;
+	color: #221f20;
+	background-color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+	font-size: 16px;
+	line-height: 24px;
+	margin-top: 10px;
+}
+
+.buttonLoginbutton button:hover {
+	background-color: #221f20;
+	color: #fff;
+	transition: 0.15s ease-in-out;
+}
+
 

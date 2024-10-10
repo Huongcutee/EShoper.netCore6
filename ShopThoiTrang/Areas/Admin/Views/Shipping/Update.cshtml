@@ -1,0 +1,129 @@
+﻿@model ShippingModel
+@{
+    ViewData["title"] = "Cập nhật giá sản phẩm";
+}
+<h1>Cập nhật giá vận chuyển</h1>
+<div class="col-md-7">
+    <form asp-action="Update" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <span asp-validation-for="Province" class="text-danger"></span>
+            <select class="css_select" id="tinh" name="Province" title="Chọn Tỉnh Thành">
+                <option value="@Model.Province">@Model.Province</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <span asp-validation-for="District" class="text-danger"></span>
+            <select class="css_select" id="quan" name="District" title="Chọn Quận Huyện">
+                <option value="@Model.District">@Model.District</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <span asp-validation-for="Ward" class="text-danger"></span>
+            <select class="css_select" id="phuong" name="Ward" title="Chọn Phường Xã">
+                <option value="@Model.Ward">@Model.Ward</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Price">Giá:</label>
+            <span asp-validation-for="Price" class="text-danger"></span>
+            <input type="number" asp-for="Price" class="form-control" id="price-shipping" />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-add-shipping">Cập nhật</button>
+        <a asp-action="Index">Trở về</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            var selectedProvince = '@Model.Province';
+            var selectedDistrict = '@Model.District';
+            var selectedWard = '@Model.Ward';
+
+            // Lấy tỉnh thành
+            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
+                if (data_tinh.error == 0) {
+                    $("#tinh").empty();
+                    $("#tinh").append('<option value="">Chọn Tỉnh Thành</option>');
+                    $.each(data_tinh.data, function (key_tinh, val_tinh) {
+                        var selected = val_tinh.full_name === selectedProvince ? 'selected' : '';
+                        $("#tinh").append('<option value="' + val_tinh.full_name + '" ' + selected + '>' + val_tinh.full_name + '</option>');
+                    });
+                    // Trigger change event để load quận/huyện
+                    $("#tinh").trigger('change');
+                }
+            });
+
+            // Khi người dùng chọn tỉnh
+            $("#tinh").change(function () {
+                var selectedProvinceName = $(this).val();
+                loadDistrict(selectedProvinceName);
+            });
+
+            // Hàm tải quận huyện
+            function loadDistrict(provinceName) {
+                $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
+                    if (data_tinh.error == 0) {
+                        var selectedProvinceId = data_tinh.data.find(p => p.full_name === provinceName)?.id;
+                        if (selectedProvinceId) {
+                            $.getJSON('https://esgoo.net/api-tinhthanh/2/' + selectedProvinceId + '.htm', function (data_quan) {
+                                if (data_quan.error == 0) {
+                                    $("#quan").empty();
+                                    $("#quan").append('<option value="">Chọn Quận Huyện</option>');
+                                    $.each(data_quan.data, function (key_quan, val_quan) {
+                                        var selected = val_quan.full_name === selectedDistrict ? 'selected' : '';
+                                        $("#quan").append('<option value="' + val_quan.full_name + '" ' + selected + '>' + val_quan.full_name + '</option>');
+                                    });
+                                    // Trigger change event để load phường/xã
+                                    $("#quan").trigger('change');
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Khi người dùng chọn quận
+            $("#quan").change(function () {
+                var selectedDistrictName = $(this).val();
+                loadWard(selectedDistrictName);
+            });
+
+            // Hàm tải phường xã
+            function loadWard(districtName) {
+                $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
+                    if (data_tinh.error == 0) {
+                        var selectedProvinceId = data_tinh.data.find(p => p.full_name === $("#tinh").val())?.id;
+                        if (selectedProvinceId) {
+                            $.getJSON('https://esgoo.net/api-tinhthanh/2/' + selectedProvinceId + '.htm', function (data_quan) {
+                                if (data_quan.error == 0) {
+                                    var selectedDistrictId = data_quan.data.find(d => d.full_name === districtName)?.id;
+                                    if (selectedDistrictId) {
+                                        $.getJSON('https://esgoo.net/api-tinhthanh/3/' + selectedDistrictId + '.htm', function (data_phuong) {
+                                            if (data_phuong.error == 0) {
+                                                $("#phuong").empty();
+                                                $("#phuong").append('<option value="">Chọn Phường Xã</option>');
+                                                $.each(data_phuong.data, function (key_phuong, val_phuong) {
+                                                    var selected = val_phuong.full_name === selectedWard ? 'selected' : '';
+                                                    $("#phuong").append('<option value="' + val_phuong.full_name + '" ' + selected + '>' + val_phuong.full_name + '</option>');
+                                                });
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+}

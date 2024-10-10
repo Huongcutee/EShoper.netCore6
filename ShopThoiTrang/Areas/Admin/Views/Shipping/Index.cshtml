@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ShippingModel>
+<a class="btn btn-default btn-group-lg" asp-action="Create" asp-controller="Shipping">Thêm shipping</a>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col" class="d-none d-lg-table-cell"><span class="formatPrice">Giá</span> </th>
+                <th scope="col" class="d-none d-md-table-cell">Tỉnh</th>
+                <th scope="col" class="d-none d-md-table-cell">Huyện</th>
+                <th scope="col" class="d-none d-lg-table-cell">Xã</th>
+                <th scope="col">Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td class="formatPrice">
+                        @item.Price
+                    </td>
+                    <td>
+                      @item.Province
+                    </td>
+                    <td>
+                        @item.District
+                    </td>
+                    <td>
+                        @item.Ward
+                    </td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="Shipping" asp-route-id="@item.Id">Sửa</a>
+                        <a class="btn btn-danger" asp-action="Remove" asp-controller="Shipping" asp-route-id="@item.Id">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

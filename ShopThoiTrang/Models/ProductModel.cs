@@ -1,7 +1,7 @@
 ﻿using ShopThoiTrang.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using EShoper.netCore6.Repository.Validation;
+using ShopThoiTrang.Repository.Validation;
 
 public class ProductModel
 {

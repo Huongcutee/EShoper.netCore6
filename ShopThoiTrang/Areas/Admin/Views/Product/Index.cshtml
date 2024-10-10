@@ -21,7 +21,7 @@
                 <tr>
                     <th scope="row">@item.Id</th>
                     <td>@item.Name</td>
-                    <td class="d-none d-md-table-cell">@item.Price.ToString("C0")</td> <!-- Ẩn trên màn hình nhỏ -->
+                    <td class="d-none d-md-table-cell formatPrice">@item.Price</td> <!-- Ẩn trên màn hình nhỏ -->
                     <td class="d-none d-md-table-cell">@item.Category.Name</td> <!-- Ẩn trên màn hình nhỏ -->
                     <td class="d-none d-lg-table-cell">@item.Brand.Name</td> <!-- Ẩn trên màn hình nhỏ và tablet -->
                     <td class="d-none d-lg-table-cell">

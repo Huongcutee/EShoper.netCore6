@@ -2,7 +2,7 @@
 {
     public class CartItemModel
     {
-        public  long ProductId { get; set; }
+        public  int ProductId { get; set; }
         public string ProductName { get; set; }
         public string Image { get; set; }
         public int Quantity {  get; set; }
@@ -18,6 +18,7 @@
         public CartItemModel(ProductModel product)
         {
             ProductId = product.Id;
+            Image = product.Images;
             ProductName = product.Name;
             Price = product.Price;
             Quantity = 1;

@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.Models;
 using ShopThoiTrang.Repository;
 
-namespace EShoper.netCore6.Controllers
+namespace ShopThoiTrang.Controllers
 {
 	public class BrandController : Controller
 	{
 		private readonly DataContext dataContext;
 		public BrandController(DataContext dataContext)
 		{
-			this.dataContext = dataContext;
+			this.dataContext = dataContext; 
 		}
 		public async  Task<IActionResult> Index(string Slug = "")
 		{

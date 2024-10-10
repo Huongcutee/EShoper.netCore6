@@ -1,5 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
+using ShopThoiTrang.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.Repository;
 
@@ -32,8 +34,31 @@ builder.Services.AddSession(
       options.IdleTimeout = TimeSpan.FromMinutes(30);
       options.Cookie.IsEssential = true;
   });
-    
+
+
+
+// identity services
+
+builder.Services.AddIdentity<AppUserModel,IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+
+    options.User.RequireUniqueEmail = true;
+});
+
+
 var app = builder.Build();
+
+
 app.UseStatusCodePagesWithRedirects("/Home/Error?statuscode={0}");
 
 // cho sử dụng dịch vụ session 
@@ -51,6 +76,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+// authen
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseAuthorization();
 // sử toast 

@@ -1,0 +1,122 @@
+﻿@model ShippingModel
+@{
+    ViewData["title"] = "Tạo mới giá vận chuyển";
+}
+<h1>Thêm shipping</h1>
+<div class="col-md-7">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <span asp-validation-for="Province" class="text-danger"></span>
+            <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành">
+                <option value="0">Tỉnh Thành</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <span asp-validation-for="District" class="text-danger"></span>
+            <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
+                <option value="0">Quận Huyện</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <span asp-validation-for="Ward" class="text-danger"></span>
+            <select class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
+                <option value="0">Phường Xã</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Price">Giá:</label>
+            <span asp-validation-for="Price" class="text-danger"></span>
+            <input type="number" asp-for="Price" class="form-control" id="price-shipping" />
+        </div>
+
+        <button type="button" class="btn btn-primary btn-add-shipping">Tạo</button>
+        <a asp-action="Index">
+            Trở về
+        </a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+
+<script src="https://esgoo.net/scripts/jquery.js"></script>
+
+<script>
+
+       //AJAX code for adding shipping
+
+    $(".btn-add-shipping").click(function () {
+        var tinh = $("#tinh").find('option:selected').text();
+        var quan = $('#quan').find('option:selected').text();
+        var phuong = $('#phuong').find('option:selected').text();
+        var price = $('#price-shipping').val();
+        if (tinh == '' || quan == '' || phuong == '' || price == '') {
+            alert("Vui lòng nhập đầy đủ trường dữ liệu");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("StoreShipping", "Shipping")",
+                data: { tinh: tinh, quan: quan, phuong: phuong, price: price },
+                success: function (result) {
+                    console.log(result);  // Kiểm tra kết quả trả về
+                    if (result.success) {
+                        alert("Thêm vận chuyển thành công");
+                        window.location.href = "@Url.Action("Index", "Shipping")";
+                    } else if (result.duplicate) {
+                        alert("Dữ liệu trùng lặp");
+                    }
+                },
+                error: function (error) {
+                    console.error("Lỗi khi gửi yêu cầu AJAX", error);  // Log lỗi để dễ debug
+                    alert("Đã xảy ra lỗi khi thêm vận chuyển");
+                }
+            });
+        }
+    });
+
+
+    $(document).ready(function() {
+        //Lấy tỉnh thành
+        $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm',function(data_tinh){
+            if(data_tinh.error==0){
+               $.each(data_tinh.data, function (key_tinh,val_tinh) {
+                  $("#tinh").append('<option value="'+val_tinh.id+'">'+val_tinh.full_name+'</option>');
+               });
+               $("#tinh").change(function(e){
+                    var idtinh=$(this).val();
+                    //Lấy quận huyện
+                    $.getJSON('https://esgoo.net/api-tinhthanh/2/'+idtinh+'.htm',function(data_quan){
+                        if(data_quan.error==0){
+                           $("#quan").html('<option value="0">Quận Huyện</option>');
+                           $("#phuong").html('<option value="0">Phường Xã</option>');
+                           $.each(data_quan.data, function (key_quan,val_quan) {
+                              $("#quan").append('<option value="'+val_quan.id+'">'+val_quan.full_name+'</option>');
+                           });
+                           //Lấy phường xã
+                           $("#quan").change(function(e){
+                                var idquan=$(this).val();
+                                $.getJSON('https://esgoo.net/api-tinhthanh/3/'+idquan+'.htm',function(data_phuong){
+                                    if(data_phuong.error==0){
+                                       $("#phuong").html('<option value="0">Phường Xã</option>');
+                                       $.each(data_phuong.data, function (key_phuong,val_phuong) {
+                                          $("#phuong").append('<option value="'+val_phuong.id+'">'+val_phuong.full_name+'</option>');
+                                       });
+                                    }
+                                });
+                           });
+
+                        }
+                    });
+               });
+
+            }
+        });
+     });
+</script>

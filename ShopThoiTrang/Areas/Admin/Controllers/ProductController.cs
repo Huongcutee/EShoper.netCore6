@@ -35,7 +35,7 @@ namespace EShoper.netCore6.Areas.Admin.Controllers
         {
             ViewBag.Categories = new SelectList(dataContext.Categories, "Id", "Name");
             ViewBag.Brands = new SelectList(dataContext.Brands, "Id", "Name");
-            return View(new ProductModel()); // Pass an empty model to avoid null reference exceptions
+            return View(new ProductModel()); 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,0 +1,434 @@
+﻿@using ShopThoiTrang.Models.ViewModels
+@model CartItemViewModel
+@{
+    int stt = 1;
+}
+
+
+<div class="container">
+    <form asp-action="Create" asp-controller="Order" >    
+        <div class="delivery-content row">
+            <!-- Left  -->
+            <div class="delivery-content-left">
+                <!-- Địa chỉ giao hàng  -->
+                    <h3>
+                        Địa chỉ giao hàng
+                    </h3>
+                    <div class="delivery-content-left-adress">
+                        <div class="delivery-content-left-adress-input-top row">
+                            <div class="delivery-content-left-adress-input-top-item" >
+                                <input required placeholder="Họ tên" type="text" name="name">
+                            </div>
+                            <div class="delivery-content-left-adress-input-top-item" >
+                                <input required placeholder="Số điện thoại" name="sdt">
+                            </div>
+                            <div class="delivery-content-left-adress-input-top-item">
+                                <select required name="matp" id="matp" >
+                                    <option>Tỉnh/Thành phố</option>                                
+                                </select>
+                            </div>
+                            <div class="delivery-content-left-adress-input-top-item">
+                                <select required name="maqh" id="maqh" >
+                                    <option>Quận/Huyện</option>
+                                </select>
+                            </div>
+                        <div class="delivery-content-left-adress-input-top-item">
+                            <select required name="xaid" id="xaid">
+                                <option>Phường/Xã</option>
+                            </select>
+                        </div>
+                        <div class="delivery-content-left-adress-input-bot">
+                            <input placeholder="Địa chỉ" type="text" name="dia_chi">
+                        </div>
+                        </div>
+                    <div class="delivery-content-left-payment">
+                        <h3>Phương thức thanh toán</h3>
+                        <div class="delivery-content-left-payment-content">
+                            <p>Mọi giao dịch đều được bảo mật và mã hóa. Thông tin thẻ tín dụng sẽ không bao giờ được
+                                lưu lại.</p>
+                            <div class="delivery-content-left-payment-content-pick">
+                                <div class="delivery-content-left-payment-content-pick-item">
+                                    <input type="radio" name="payment_menthods" value="Thanh toán bằng thẻ tín dụng">
+                                    <label>Thanh toán bằng thẻ tín dụng</label>
+                                </div>
+                                <div class="delivery-content-left-payment-content-pick-item">
+                                    <input type="radio" name="payment_menthods" value="Thanh toán bằng VNPAY">
+                                    <label>Thanh toán bằng VNPAY</label>
+                                </div>
+                                <div class="delivery-content-left-payment-content-pick-item">
+                                    <input type="radio" name="payment_menthods" value="Thanh toán bằng Momo">
+                                    <label>Thanh toán bằng Momo</label>
+                                </div>
+                                <div class="delivery-content-left-payment-content-pick-item">
+                                    <input type="radio" name="payment_menthods" value="Thanh toán khi giao hàng">
+                                    <label>Thanh toán khi giao hàng</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- .End .. -->
+            <!-- Tổng Tiền Giỏ Hàng -->
+            <div class="delivery-content-right">
+                <h3>Tổng tiền giỏ hàng</h3>
+                <table>
+                    <tr>
+                        <td>
+                            Tổng tiền hàng<b class="formatPrice">@Model.GrandTotal.ToString()</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Thành tiền</td>
+                        <td><b class="formatPrice">@Model.GrandTotal.ToString()</b></td>
+                    </tr>
+                    <tr>
+                        <td>Tạm tính</td>
+                            <td><b class="formatPrice">@Model.GrandTotal.ToString()</b></td>
+                    </tr>
+                </table>
+                <div class="cart-content-right-text row">
+                    <p>
+                        <i class="fa-solid fa-circle-exclamation"></i> Miễn <b>đổi trả</b> đối với sản phẩm đồng giá
+                        / sale trên 50%
+                    </p>
+                </div>
+                <input type="hidden" name="total_price" value="<?php echo $tong ?>">
+                <input type="hidden" name="code_order" value="<?php echo $code_order ?>">
+                <div class="cart-content-right-button">
+                    <input type="submit" value="HOÀN THÀNH">
+                </div>
+            </div>
+            <!-- End -->
+        </div>
+    </form>
+    <!-- Hiển thị sản phẩm  -->
+    <div class="">
+        <div class="delivery-content-left-button-hienthisanpham">
+            <button id="showButton" onclick="showProducts()" style="display: block;"><p>HIỂN THỊ SẢN PHẨM</p></button>
+            <button id="hideButton" onclick="hideProducts()" style="display: none;"><p>ẨN SẢN PHẨM</p></button>
+        </div>
+        <div class="delivery-left-ThongTinSanPham">
+            <div id="productInfo" class="cart-left">
+                <table style="width: 145%;">
+                    <tr>
+                        <th>STT</th>
+                        <th>ẢNH</th>
+                        <th>TÊN</th>             
+                        <th>SL</th>
+                        <th>THÀNH TIỀN</th>
+                    </tr>
+                    @if (Model.cartItems.Count > 0)
+					{
+						foreach(var item in Model.cartItems)
+						{
+                            <tr>
+                                <td>@stt</td>
+                                <td><img width="120" src="~/media/products/@item.Image" /></td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Quantity</td>
+                                <td class="formatPrice">@item.PriceTotal</td>
+                            </tr>
+                            stt++;
+                        }
+                    }
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- End  -->
+</div>
+
+<script>
+    function showProducts() {
+        var productInfo = document.getElementById("productInfo");
+        var showButton = document.getElementById("showButton");
+        var hideButton = document.getElementById("hideButton");
+
+        productInfo.classList.add("show"); // Hiển thị sản phẩm
+        productInfo.style.display = "block"; // Đảm bảo nó hiện ra
+        showButton.style.display = "none"; // Ẩn nút hiển thị
+        hideButton.style.display = "block"; // Hiện nút ẩn
+    }
+
+    function hideProducts() {
+        var productInfo = document.getElementById("productInfo");
+        var showButton = document.getElementById("showButton");
+        var hideButton = document.getElementById("hideButton");
+
+        productInfo.classList.remove("show"); // Ẩn sản phẩm
+        productInfo.style.display = "none"; // Ẩn div sản phẩm
+        showButton.style.display = "block"; // Hiện nút hiển thị
+        hideButton.style.display = "none"; // Ẩn nút ẩn
+    }
+</script>
+
+<style>
+
+    /* Hiệu ứng slide */
+    #productInfo {
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+    }
+
+        #productInfo.show {
+            max-height: 1000px; /* Đặt giá trị lớn hơn nhiều so với chiều cao thực tế để tránh lỗi */
+            opacity: 1;
+        }
+    /*
+        Delivery
+    */
+    /*----------------- Delivery--------------- */
+    #input_number {
+        -webkit-appearance: none;
+        -moz-appearance: textfield;
+        appearance: none;
+        margin: 0;
+    }
+
+    /* Ẩn nút tăng/giảm trên Edge (Chromium) */
+    .cart-content-right-button {
+        margin-top: 20px;
+        padding: 0px 18px 0px 0px;
+    }
+
+        .cart-content-right-button input {
+            width: 420px;
+            height: 50px;
+            border-radius: 16px 0px;
+            border: 1px solid transparent;
+            color: #fff;
+            background-color: #221f20;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            font-weight: 600;
+        }
+
+            .cart-content-right-button input:hover {
+                background-color: #fff;
+                color: #221f20;
+                transition: 0.15s ease-in-out;
+                border: 2px solid #432a2a;
+            }
+
+    .input_soluong input {
+        width: 60px;
+        height: 40px;
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+    }
+
+    .delivery {
+        padding: 100px 0;
+    }
+
+    .delivery-top-wrap {
+        width: 100%;
+        background-color: #e7e8e9;
+        height: 5px;
+        margin: 50px 0px;
+    }
+
+    .delivery-top ul {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .delivery-top ul li {
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            display: flex;
+            background-color: #fff;
+            margin-top: -20px;
+        }
+
+            .delivery-top ul li:nth-child(2) {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #279EFF;
+                color: #279EFF;
+                display: flex;
+                background-color: #fff;
+                margin-top: -20px;
+            }
+
+    .delivery-content-left {
+        width: 70%;
+        padding-right: 12px;
+    }
+
+    .delivery-content-right {
+        width: 40%;
+    }
+
+    .delivery-content-left-button {
+        padding: 30px 0px 10px 0px;
+    }
+
+    .delivery-content-left-button-dn button {
+        width: 220px;
+        height: 50px;
+        border-radius: 16px 0px;
+        border: 1px solid transparent;
+        color: #fff;
+        background-color: #221f20;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+        font-weight: 500;
+    }
+
+        .delivery-content-left-button-dn button:hover {
+            background-color: #fff;
+            color: #221f20;
+            transition: 0.15s ease-in-out;
+            border: 2px solid #432a2a;
+        }
+
+    .delivery-content-left-button-dk button {
+        color: #221f20;
+        background-color: #fff;
+        width: 220px;
+        height: 50px;
+        border-radius: 16px 0px;
+        border: 1px solid #221f20;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+        font-weight: 500;
+        margin-left: 15px;
+    }
+
+        .delivery-content-left-button-dk button:hover {
+            color: #fff;
+            background-color: #221f20;
+            border: 1px solid transparent;
+            transition: 0.15s ease-in-out;
+        }
+
+    .delivery-content-left-text p {
+        color: #221F20;
+        font-size: 12px;
+        font-style: italic;
+    }
+
+    .delivery-content-left-adress {
+        margin-top: 20px;
+    }
+
+    .delivery-content-left-adress-title {
+        align-items: center;
+    }
+
+        .delivery-content-left-adress-title i {
+            font-size: 20px;
+        }
+
+        .delivery-content-left-adress-title span {
+            font-size: 20px;
+            margin-left: 8px;
+        }
+
+    .delivery-content-left-adress-input-top {
+        justify-content: space-between;
+    }
+
+    .delivery-content-left-adress-input-top-item {
+        width: calc(50% - 12px);
+        margin-top: 10px;
+    }
+
+        .delivery-content-left-adress-input-top-item select {
+            width: 100%;
+            height: 40px;
+            padding: 0px 0px 0px 10px;
+            border: 1px solid #ccc;
+        }
+
+        .delivery-content-left-adress-input-top-item input {
+            width: 100%;
+            height: 40px;
+            padding: 0px 0px 0px 10px;
+            border: 1px solid #ccc;
+        }
+
+    .delivery-content-left-adress-input-bot {
+        margin-top: 10px;
+    }
+
+        .delivery-content-left-adress-input-bot select {
+            width: 100%;
+            height: 40px;
+            padding: 0px 0px 0px 10px;
+            border: 1px solid #ccc;
+        }
+
+        .delivery-content-left-adress-input-bot input {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 0px 0px 0px 10px;
+            height: 40px;
+        }
+
+    .delivery-content-left-payment {
+        margin-top: 20px;
+    }
+
+    .delivery-content-left-payment-content {
+        margin: 20px 40px;
+    }
+
+        .delivery-content-left-payment-content p {
+            font-size: 16px;
+            color: #333;
+        }
+
+    .delivery-content-left-payment-content-pick {
+        margin: 15px 0px;
+    }
+
+    .delivery-content-left-payment-content-pick-item label {
+        font-size: 18px;
+    }
+
+    .delivery-content-left-button-hienthisanpham button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 50px;
+        border-radius: 16px 0px;
+        border: 1px solid #221f20;
+        color: #221f20;
+        background-color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 10px;
+    }
+
+        .delivery-content-left-button-hienthisanpham button p {
+            padding-left: 10px;
+        }
+
+        .delivery-content-left-button-hienthisanpham button:hover {
+            background-color: #221f20;
+            color: #fff;
+            transition: 0.15s ease-in-out;
+        }
+
+   
+</style>

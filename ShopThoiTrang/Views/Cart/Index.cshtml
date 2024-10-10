@@ -3,9 +3,6 @@
 <h4>
 	Giỏi hàng
 </h4>
-@{
-	
-}
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -18,11 +15,11 @@
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-							<td class="image">Item</td>
-							<td class="description"></td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
+							<td class="image">Hình ảnh</td>
+							<td class="name">Tên</td>
+							<td class="price">Giá</td>
+							<td>Số lượng</td>
+							<td class="total">Tổng</td>
 							<td></td>
 						</tr>
 					</thead>
@@ -32,40 +29,48 @@
 						foreach(var item in Model.cartItems)
 						{
 							<tr>
-								<td class="cart_product">
-									<a href=""><img src="~/images/@item.Image" alt=""></a>
+								<td class="">
+									<img width="110"  src="~/media/products/@item.Image" alt="">
 								</td>
 								<td class="cart_description">
-									<h4><a href="">@item.ProductName</a></h4>
+									<h4><a>@item.ProductName</a></h4>
 								</td>
-								<td class="cart_price">
-									<p>@item.Price VNĐ</p>
-								</td>
-								<td class="cart_quantity">
+								<td class="formatPrice">@item.Price</td>
+								<td class="">
 									<div class="cart_quantity_button">
-										<a class=""  asp-action="Decrease" asp-controller="Cart" asp-route-id="@item.ProductId"> - </a>
+										<a class="btn btn-primary btn-sm" asp-action="Decrease" asp-controller="Cart" asp-route-id="@item.ProductId"> - </a>
 										<input class="cart_quantity_input" type="text" name="quantity" typeof="" value="@item.Quantity" autocomplete="off" size="2">
-										<a class="btn btn-success btn-sm" asp-action="Increase" asp-controller="Cart" asp-route-id="@item.ProductId"> + </a>
-										<a class="w-auto h-10" asp-action="Remove" asp-controller="Cart" asp-route-id="@item.ProductId" >Remove</a>
+										<a class="btn btn-primary btn-sm" asp-action="Increase" asp-controller="Cart" asp-route-id="@item.ProductId"> + </a>
+										<a class="btn btn-danger " asp-action="Remove" asp-controller="Cart" asp-route-id="@item.ProductId">Remove</a>
 									</div>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price">@Model.cartItems.Where(c => c.ProductId == item.ProductId).Sum(s => s.Price * s.Quantity)</p>
-								</td>
-								<td class="cart_delete">
-									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+									<p class="cart_total_price formatPrice">@Model.cartItems.Where(c => c.ProductId == item.ProductId).Sum(s => s.Price * s.Quantity)</p>
 								</td>
 							</tr>
 						}
 						<tr>
-							<td class="colspan-6">Tổng tiền: @Model.GrandTotal.ToString();</td>
+								<td>
+								<a asp-action="Index" asp-controller="Order" class="btn btn-success">
+										Đặt hàng
+									</a>
+								</td>
+								<td class="colspan-6">
+								<h4 class="formatPrice">@Model.GrandTotal.ToString()</h4>
+								</td>
+								
 						</tr>
 					}
 					else
 					{
-						<p>
-							Không tồn tại đơn hàng nào cả 
-						</p>
+						<tr>
+							<td>
+
+								<h4>
+									Không tồn tại đơn hàng nào cả 
+								</h4>
+							</td>
+						</tr>
 					}
 				</tbody>
 				</table>

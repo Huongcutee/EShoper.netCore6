@@ -125,7 +125,6 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
             dataContext.Shippings.Remove(shipping);
              await dataContext.SaveChangesAsync();
             _notifyService.Success("Xóa giá vận chuyển thành công");
-
             return RedirectToAction("Index","Shipping");
         }
     }

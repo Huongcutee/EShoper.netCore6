@@ -90,7 +90,7 @@
 
 										<div class="productinfo text-center">
 											<img style="width:240px;max-height:240px" src="~/media/products/@item.Images" />
-											<h2>$@item.Price</h2>
+											<h2 class="formatPrice">@item.Price</h2>
 											<p>Tên: @item.Name</p>
 											<p>Thương hiệu: @item.Brand.Name</p>
 											<a asp-action="Add" asp-controller="Cart" asp-route-Id="@item.Id" class="btn btn-default add-to-cart">

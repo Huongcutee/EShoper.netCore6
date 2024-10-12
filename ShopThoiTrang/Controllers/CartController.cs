@@ -96,7 +96,7 @@ namespace ShopThoiTrang.Controllers
 			// Điều hướng trở về trang trước đó
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
-		public async Task<IActionResult> Increase(int Id)
+		public  IActionResult Increase(int Id)
 		{
 			List<CartItemModel> cart = HttpContext.Session.GetJson<List<CartItemModel>>("Cart") ?? new List<CartItemModel>(); // kiem tra trong session gio hang  chau ?
 			CartItemModel cartItems = cart.Where(c => c.ProductId == Id).FirstOrDefault();
@@ -117,7 +117,7 @@ namespace ShopThoiTrang.Controllers
 			}
 			return RedirectToAction("Index");
 		}
-		public async Task<IActionResult> Remove(int Id)
+		public  IActionResult Remove(int Id)
 		{
 			List<CartItemModel> cart = HttpContext.Session.GetJson<List<CartItemModel>>("Cart") ?? new List<CartItemModel>(); // kiem tra trong session gio hang  chau ?
 			CartItemModel cartItems = cart.Where(c => c.ProductId == Id).FirstOrDefault();
@@ -125,7 +125,7 @@ namespace ShopThoiTrang.Controllers
 			{
 				_notifyService.Success("Xóa sản phẩm thành công");
 				cart.RemoveAll(c => c.ProductId == Id);
-			HttpContext.Session.SetJson("Cart", cart);
+				HttpContext.Session.SetJson("Cart", cart);
 			}
 			catch (Exception ex)
 			{

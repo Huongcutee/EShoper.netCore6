@@ -10,12 +10,17 @@ namespace ShopThoiTrang.Models
 
 		public string UserName { get; set; }
 		public decimal TotalPrice { get; set; }
-		
+        public string Province { get; set; }
+        public string District { get; set; }
+        public string Ward { get; set; }
 
-		public DateTime CreateDate { get; set; }
+
+        public DateTime CreateDate { get; set; }
 
 		public int Status { get; set; }
 
+        [Required]
+        public string phoneNumber { get; set; }
 
     }
 }

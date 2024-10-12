@@ -15,5 +15,6 @@ namespace ShopThoiTrang.Models
         [Required]
         public decimal Price { get; set; }
 
+
     }
 }

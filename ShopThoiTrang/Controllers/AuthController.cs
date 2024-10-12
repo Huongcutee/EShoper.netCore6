@@ -56,7 +56,7 @@ namespace ShopThoiTrang.Controllers
 				return View(user);
 			}
 
-			AppUserModel model = new AppUserModel { UserName = user.UserName, Email = user.Email };
+			AppUserModel model = new AppUserModel { UserName = user.UserName, Email = user.Email,PhoneNumber = user.PhoneNumber};
 
 			IdentityResult result = await _userManager.CreateAsync(model, user.Password);
 			if (result.Succeeded)

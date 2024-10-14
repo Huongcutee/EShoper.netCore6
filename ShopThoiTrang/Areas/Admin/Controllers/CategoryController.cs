@@ -11,7 +11,7 @@ using System.Net.WebSockets;
 namespace EShoper.netCore6.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	[Authorize]
+	[Authorize(Roles = "Admin")]
 
 	public class CategoryController : Controller
 	{

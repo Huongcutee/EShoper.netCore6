@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.Models;
 using ShopThoiTrang.Repository;
 
 namespace ShopThoiTrang.Controllers
 {
-	[Authorize]
-	public class BrandController : Controller
+	public class ApiBrandController : Controller
 	{
 		private readonly DataContext dataContext;
-		public BrandController(DataContext dataContext)
+		public ApiBrandController(DataContext dataContext)
 		{
 			this.dataContext = dataContext; 
 		}

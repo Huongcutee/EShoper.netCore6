@@ -12,6 +12,10 @@ namespace ShopThoiTrang.Models
         public string Password { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập email"), EmailAddress]
         public string Email { get; set; }
+        [Required(ErrorMessage="Vui lòng chọn quyền hạn")]
+        public string RoleName { get; set; }
         public string PhoneNumber { get; set; }
+        
+
     }
 }

@@ -10,7 +10,7 @@ using ShopThoiTrang.Repository;
 namespace ShopThoiTrang.Areas.Admin.Controllers
 {
     [Area("Admin")]
-	[Authorize]
+	[Authorize(Roles ="Admin")]
 	public class ShippingController : Controller
     {
         private readonly DataContext dataContext;

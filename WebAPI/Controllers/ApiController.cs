@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; 
 using ShopThoiTrang.Models;
 using ShopThoiTrang.Repository;
@@ -8,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace ShopThoiTrang.Controllers
 {
-	[Authorize]
-	public class CategoryController : Controller
+	public class ApiController : Controller
 	{
 		private readonly DataContext _datacontext;
 
-		public CategoryController(DataContext datacontext)
+		public ApiController(DataContext datacontext)
 		{
 			_datacontext = datacontext;
 		}

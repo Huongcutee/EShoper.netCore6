@@ -1,0 +1,22 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+@{
+    ViewData["title"] = "Cập nhật quyền hạn";
+}
+<h1>Cập nhật quyền hạn</h1>
+<div class="col-md-7">
+    <form asp-action="Update">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <label for="Name">Tên:</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <input width="400" asp-for="Name" value="@Model.Name" class="form-control" />
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+    </form>
+    <a asp-action="Index">
+        Trở về
+    </a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

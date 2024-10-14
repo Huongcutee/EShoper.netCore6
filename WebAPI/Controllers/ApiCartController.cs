@@ -1,5 +1,4 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopThoiTrang.Models;
 using ShopThoiTrang.Models.ViewModels;
@@ -8,7 +7,6 @@ using ShopThoiTrang.Repository;
 
 namespace ShopThoiTrang.Controllers
 {
-	[Authorize]
 	public class CartController : Controller
 	{
 	    private readonly DataContext _dataContext;

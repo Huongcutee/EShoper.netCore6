@@ -1,0 +1,38 @@
+﻿@model IEnumerable<AppUserModel>
+@{
+    int Stt = 1;
+}
+<a class="btn btn-default btn-group-lg" asp-action="Create" asp-controller="User">Thêm tài khoản mới</a>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên đăng nhập</th>
+                <th scope="col">Email</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Quyền</th>
+                <th scope="col">Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@Stt</th>
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.RoleName</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="User" asp-route-Id="@item.Id">Sửa</a>
+                        <a class="btn btn-danger" asp-action="Remove" asp-controller="User" asp-route-UserName="@item.UserName">Xóa</a>
+                    </td>
+                </tr>
+                Stt++;
+            }
+        </tbody>
+    </table>
+</div>
+

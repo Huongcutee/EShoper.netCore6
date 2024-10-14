@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    int stt = 1;
+}
+<a class="btn btn-default btn-group-lg" asp-action="Create" asp-controller="Role">Thêm chức năng mới</a>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">ID</th>
+                <th scope="col">Tên chức năng</th>
+                <th scope="col">Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@stt</th>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="Role" asp-route-id="@item.Id">Sửa</a>
+                        <a class="btn btn-danger" asp-action="Remove" asp-controller="Role" asp-route-id="@item.Id">Xóa</a>
+                    </td>
+                </tr>
+                stt++;
+            }
+        </tbody>
+    </table>
+</div>
+

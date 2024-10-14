@@ -1,0 +1,48 @@
+﻿@model UserModel
+@{
+    ViewData["title"] = "Tạo tài khoản";
+}
+<h1>Thêm tài khoản</h1>
+<div class="col-md-7">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label for="UserName">Tên:</label>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+            <input width="400" asp-for="UserName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="PasswordHash">Mật khẩu:</label>
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <input width="400" asp-for="Password" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <input width="400" asp-for="Email" type="email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="PhoneNumber">Số điện thoại:</label>
+            <input width="400" asp-for="PhoneNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="RoleId">Chức vụ:</label>
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+            <select asp-for="RoleName" class="form-control" asp-items="ViewBag.role">
+                <option value="">--Chọn chức vụ--</option>
+            </select>
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Tạo</button>
+    </form>
+    <a asp-action="Index">
+        Trở về
+    </a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

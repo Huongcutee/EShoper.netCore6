@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
@@ -10,6 +11,7 @@ using System.Security.Claims;
 
 namespace ShopThoiTrang.Controllers
 {
+    [Authorize]
 	public class OrderController : Controller
 	{
         public INotyfService _notifyService { get; }

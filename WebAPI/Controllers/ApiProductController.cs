@@ -1,18 +1,17 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.Repository;
+using ShopThoiTrang.Models;
 
 namespace ShopThoiTrang.Controllers
 {
-	[Authorize]
-	public class ProductController : Controller
+	public class ApiProductController : Controller
 	{
 		private readonly DataContext dataContext;
         private readonly ILogger<CartController> _logger;
         public INotyfService _notifyService { get; }
-        public ProductController(DataContext dataContext, INotyfService _notifyService, ILogger<CartController> _logger) {
+        public ApiProductController(DataContext dataContext, INotyfService _notifyService, ILogger<CartController> _logger) {
 			this.dataContext = dataContext;
 			this._notifyService = _notifyService;
 			this._logger = _logger;	

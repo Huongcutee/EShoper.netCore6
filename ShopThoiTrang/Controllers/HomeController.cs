@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.Models;
@@ -8,6 +9,7 @@ using System.Drawing.Printing;
 
 namespace ShopThoiTrang.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly DataContext _dataContext;

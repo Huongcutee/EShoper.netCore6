@@ -10,8 +10,7 @@ using ShopThoiTrang.Repository;
 namespace EShoper.netCore6.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	[Authorize]
-
+	[Authorize(Roles = "Admin")]
 	public class ProductController : Controller
 	{
 		private readonly DataContext dataContext;

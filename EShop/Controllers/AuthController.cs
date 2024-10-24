@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using EShop.Models.ViewModels;
 using EShop.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace EShop.Controllers
 {
@@ -12,19 +15,82 @@ namespace EShop.Controllers
 		private SignInManager<AppUserModel> _signInManager;
 		public INotyfService _notifyService { get; }
 		private RoleManager<IdentityRole> roleManager;
+		private ILogger<AuthController> _logger;
+		// login google 
+		private string ReturnUrl { get; set; }
+		private IList<AuthenticationScheme> ExternalLogins  { get; set; }
+		//
 
-		public AuthController(UserManager<AppUserModel> _userManager, SignInManager<AppUserModel> _signInManager, INotyfService _notifyService, RoleManager<IdentityRole> roleManager)
+		public AuthController(UserManager<AppUserModel> _userManager, SignInManager<AppUserModel> _signInManager, INotyfService _notifyService, RoleManager<IdentityRole> roleManager,ILogger<AuthController> _logger)
 		{
 
 			this._userManager = _userManager;
 			this._signInManager = _signInManager;
 			this._notifyService = _notifyService;
 			this.roleManager = roleManager;
-		}
-		public  IActionResult Create()
+			this._logger = _logger;
+
+        }
+
+
+        //login googole 
+        [HttpPost]
+        public IActionResult GoogleLogin()
+        {
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action(nameof(GoogleCallback), "Auth"));
+            return Challenge(properties, "Google");
+        }
+
+        public async Task<IActionResult> GoogleCallback()
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                _notifyService.Error("Lỗi khi đăng nhập từ Google");
+                return RedirectToAction(nameof(Login));
+            }
+
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if (signInResult.Succeeded)
+            {
+                _notifyService.Success("Đăng nhập thành công");
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Nếu tài khoản chưa tồn tại, tạo tài khoản mới
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var user = new AppUserModel
+            {
+                UserName = email,
+                Email = email,
+                RoleName = "Client"
+            };
+
+            var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                result = await _userManager.AddLoginAsync(user, info);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Client");
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    _notifyService.Success("Đăng ký và đăng nhập thành công");
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            _notifyService.Error("Lỗi khi tạo tài khoản từ Google");
+            return RedirectToAction(nameof(Login));
+        }
+        // het login google 
+
+
+        public IActionResult Create()
 		{
 			return View();
 		}
+
 		[HttpPost]
 		public async Task<IActionResult> Create(UserModel user)
 		{

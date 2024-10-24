@@ -43,22 +43,24 @@
                         <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
                     </div>
 
-                    <div class="buttonLogin" style="display:flex; align-content:space-between">
-                        <button>
-                            <i class="fa-brands fa-facebook"></i>
-                            <p>
-                                Facebook
-                            </p>
-                        </button>
-                        <button>
+                </form>
+                <div class="buttonLogin" style="display:flex; align-content:space-between">
+                    <button>
+                        <i class="fa-brands fa-facebook"></i>
+                        <p>
+                            Facebook
+                        </p>
+                    </button>
+                    <form  asp-action="GoogleLogin" asp-controller="Auth" method="post">
+                        <button type="submit" >
                             <i class="fa-brands fa-facebook"></i>
                             <p>
                                 Gmail
                             </p>
                         </button>
-                    </div>
+                    </form>
+                </div>
 
-                </form>
             </div>
         </div>
     </div>

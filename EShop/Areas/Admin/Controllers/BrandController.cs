@@ -1,12 +1,9 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
-using EShop.Controllers;
 using EShop.Models;
-using EShop.Repository;
-using System.Net.WebSockets;
+using EShop.Data;
 
 namespace EShoper.netCore6.Areas.Admin.Controllers
 {

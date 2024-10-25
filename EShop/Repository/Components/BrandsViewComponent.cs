@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EShop.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Repository.Components
 {
-	public class BrandsViewComponent : ViewComponent
+    public class BrandsViewComponent : ViewComponent
 	{
 		private readonly DataContext _dataContext;
 		public BrandsViewComponent(DataContext context)

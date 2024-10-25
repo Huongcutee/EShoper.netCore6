@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EShop.Models;
-using EShop.Repository;
 using System.Diagnostics;
 using System.Drawing.Printing;
+using EShop.Data;
 
 namespace EShop.Controllers
 {

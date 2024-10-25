@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
 using EShop.Models;
-using EShop.Repository;
 using System.Linq;
 using System.Threading.Tasks;
+using EShop.Data;
 
 namespace EShop.Controllers
 {
-	[Authorize]
+    [Authorize]
 	public class CategoryController : Controller
 	{
 		private readonly DataContext _datacontext;

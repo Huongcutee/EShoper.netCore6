@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EShop.Models;
-using EShop.Repository;
+using EShop.Data;
 
 namespace EShop.Controllers
 {
-	[Authorize]
+    [Authorize]
 	public class BrandController : Controller
 	{
 		private readonly DataContext dataContext;

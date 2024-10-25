@@ -5,12 +5,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using EShop.Controllers;
 using EShop.Models;
-using EShop.Repository;
 using System.Net.WebSockets;
+using EShop.Data;
 
 namespace EShoper.netCore6.Areas.Admin.Controllers
 {
-	[Area("Admin")]
+    [Area("Admin")]
 	[Authorize(Roles = "Admin")]
 
 	public class CategoryController : Controller

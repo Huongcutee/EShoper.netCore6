@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using EShop.Models;
-using EShop.Repository;
+using EShop.Data;
 
 namespace EShop.Areas.Admin.Controllers
 {

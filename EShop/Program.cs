@@ -4,6 +4,7 @@ using EShop.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EShop.Repository;
+using EShop.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,6 +68,18 @@ builder.Services.AddAuthentication()
     googleOptions.CallbackPath = "/dang-nhap-tu-google";
 });
 
+// Thêm CORS nếu cần
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:7289")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
+
 
 var app = builder.Build();
 
@@ -119,5 +132,8 @@ app.MapControllerRoute(
 //Seeding Data
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedingData(context);
+
+// Trong phần Configure
+app.UseCors("AllowSpecificOrigin");
 
 app.Run();

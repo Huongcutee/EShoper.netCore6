@@ -8,6 +8,7 @@ using EShop.Models.ViewModels;
 using EShop.Repository;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
+using EShop.Data;
 
 namespace EShop.Controllers
 {

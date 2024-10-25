@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using EShop.Areas.Admin.Model;
 using EShop.Models;
-using EShop.Repository;
+using EShop.Data;
 
 namespace EShop.Areas.Admin.Controllers
 {

@@ -1,54 +1,93 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ShopThoiTrang.Repository;
-using ShopThoiTrang.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using EShop.Models;
+using WEBAPI.Interfaces;
+using System.Collections.Generic;
 
-namespace ShopThoiTrang.Controllers
+namespace WEBAPI.Controllers
 {
-	public class ApiProductController : Controller
-	{
-		private readonly DataContext dataContext;
-        private readonly ILogger<CartController> _logger;
-        public INotyfService _notifyService { get; }
-        public ApiProductController(DataContext dataContext, INotyfService _notifyService, ILogger<CartController> _logger) {
-			this.dataContext = dataContext;
-			this._notifyService = _notifyService;
-			this._logger = _logger;	
-		}
-		public IActionResult Index()
-		{
-			return View(); 
-		}
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ApiProductController : ControllerBase 
+    {
+        private readonly IProductRepository _productRepository;
 
-		[HttpGet]
-		public async Task<IActionResult> Details(int Id)
-		{
-			if (Id <= 0)
-			{
-				_notifyService.Warning("Id sản phẩm không hợp lệ");
-				return RedirectToAction("Index");
-			}
+        public ApiProductController(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
 
-			try
-			{
-				var productById = await dataContext.Products.FirstOrDefaultAsync(p => p.Id == Id);
+        [HttpGet]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<ProductModel>))]
+        public IActionResult GetProducts()
+        {
+            var products = _productRepository.GetProducts();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(products);
+        }
 
-				if (productById == null)
-				{
-					_notifyService.Warning("Không tìm thấy sản phẩm");
-					return RedirectToAction("Index");
-				}
+        // Lấy sản phẩm theo ID
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(ProductModel))]
+        [ProducesResponseType(404)]
+        public IActionResult GetProductByID(int id)
+        {
+            var product = _productRepository.GetProductByID(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
+        }
 
-				return View(productById);
-			}
-			catch (Exception ex)
-			{
-				_logger.LogError(ex, "Lỗi khi lấy chi tiết sản phẩm");
-				_notifyService.Error("Có lỗi xảy ra khi xử lý yêu cầu");
-				return RedirectToAction("Index");
-			}
-		}
+        [HttpPost]
+        [ProducesResponseType(201, Type = typeof(ProductModel))]
+        [ProducesResponseType(400)]
+        public IActionResult CreateProduct([FromBody] ProductModel product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-	}
+            var createdProduct = _productRepository.CreateProduct(product);
+            return CreatedAtAction(nameof(GetProductByID), new { id = createdProduct.Id }, createdProduct);
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(200, Type = typeof(ProductModel))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        public IActionResult UpdateProduct(int id, [FromBody] ProductModel product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var updatedProduct = _productRepository.UpdateProduct(id, product);
+            if (updatedProduct == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedProduct);
+        }
+
+        // Xóa sản phẩm
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteProduct(int id)
+        {
+            var isDeleted = _productRepository.DeleteProduct(id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+    }
 }

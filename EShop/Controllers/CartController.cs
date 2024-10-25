@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using EShop.Models;
 using EShop.Models.ViewModels;
 using EShop.Repository;
+using EShop.Data;
 
 
 namespace EShop.Controllers
 {
-	[Authorize]
+    [Authorize]
 	public class CartController : Controller
 	{
 	    private readonly DataContext _dataContext;

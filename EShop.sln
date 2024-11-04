@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop", "EShop\EShop.csproj", "{E779EEB3-291D-42E1-8EA9-7D1E65B69D4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEBAPI", "WEBAPI\WEBAPI.csproj", "{28C4BB4A-365B-48CA-A956-79AC28B32F0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEBAPI", "WEBAPI\WEBAPI.csproj", "{28C4BB4A-365B-48CA-A956-79AC28B32F0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

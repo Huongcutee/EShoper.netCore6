@@ -84,10 +84,13 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a asp-action="Index" asp-controller="Cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li style="position:relative"><a href="" style="position:relative">
+										<div style=" height: 15px; width: 15px; background-color: #FFF;border:1px solid #000000; border-radius: 50%; display: inline-block; position:absolute; top:0;right:0 ">
+											<span style="font-size:14px; position:absolute;top:-2px;right:2px">1</span>
+										</div>
+									<img src="~/images/home/bell.png" alt="bell" width="25"/></a>
+								</li>
 								@if (User.Identity?.IsAuthenticated ?? false)
 								{
 									<li><a asp-action="Logout" asp-controller="Auth">Chào, @User.Identity.Name Logout</a></li>

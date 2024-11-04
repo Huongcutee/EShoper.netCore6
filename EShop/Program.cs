@@ -5,8 +5,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EShop.Repository;
 using EShop.Data;
+using EShop.Areas.Admin.Hubs;
+using EShop.MiddlewawreExtensions;
+using EShop.SubscribeTableDepemdemcies;
+using EShop.SubcribeTalbeDependecies;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSignalR();
+
+//DI
+builder.Services.AddSingleton<DashboardHub>();
+builder.Services.AddSingleton<SubscribeProductTableDependency>();
+builder.Services.AddSingleton<SubscribeOrderTableDependency>();
 
 // connection 
 builder.Services.AddDbContext<DataContext>(options =>
@@ -82,7 +92,10 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+var connectionString = app.Configuration.GetConnectionString("ConnectedDb");
 
+
+app.MapHub<DashboardHub>("/dashboardHub");
 
 app.UseStatusCodePagesWithRedirects("/Home/Error?statuscode={0}");
 
@@ -132,8 +145,11 @@ app.MapControllerRoute(
 //Seeding Data
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedingData(context);
-
 // Trong phần Configure
 app.UseCors("AllowSpecificOrigin");
+
+app.UseSqlTableDependency<SubscribeProductTableDependency>(connectionString);
+app.UseSqlTableDependency<SubscribeOrderTableDependency>(connectionString);
+
 
 app.Run();

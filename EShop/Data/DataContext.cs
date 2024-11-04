@@ -1,4 +1,5 @@
-﻿using EShop.Models;
+﻿using EShop.Areas.Admin.Models;
+using EShop.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,5 +17,13 @@ namespace EShop.Data
         public DbSet<OrderModel> Orders { get; set; }
         public DbSet<OrderDetailModel> OrderDetails { get; set; }
         public DbSet<ShippingModel> Shippings { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductForGraph>().HasNoKey();
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<OrderProductForGraph>().HasNoKey();
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

@@ -1,18 +1,15 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
 using EShop.Models;
 using EShop.Models.ViewModels;
 using EShop.Repository;
-using System.Runtime.CompilerServices;
-using System.Security.Claims;
 using EShop.Data;
+using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Controllers
 {
-    [Authorize]
 	public class OrderController : Controller
 	{
         public INotyfService _notifyService { get; }
@@ -42,11 +39,21 @@ namespace EShop.Controllers
             // Retrieve cart items from session
             List<CartItemModel> cartItems = HttpContext.Session.GetJson<List<CartItemModel>>("Cart") ?? new List<CartItemModel>();
 
+            var shippingPriceCookie = Request.Cookies["ShippingPrices"];
+            decimal shippingPrice = 0;
+            if (shippingPriceCookie != null)
+            {
+                shippingPrice = JsonConvert.DeserializeObject<decimal>(shippingPriceCookie);
+            }
+            decimal grandTotal = cartItems.Any() ? cartItems.Sum(x => x.Quantity * x.Price) : 0;
+            decimal totalPrice = grandTotal + shippingPrice;
             // Create CartItemViewModel
             CartItemViewModel cartVM = new()
             {
+                ShippingPrice = shippingPrice,
                 cartItems = cartItems,
-                GrandTotal = cartItems.Any() ? cartItems.Sum(x => x.Quantity * x.Price) : 0
+                GrandTotal = grandTotal,
+                TotalPrice = totalPrice
             };
             
             
@@ -55,7 +62,7 @@ namespace EShop.Controllers
 
         [HttpPost]
         [Route("StoreOrder")]
-        public async Task<ActionResult> StoreOrder(OrderModel orderModel, string tinh, string quan, string phuong, string phoneNumber, decimal grandPrice)
+        public async Task<ActionResult> StoreOrder(OrderModel orderModel, string tinh, string quan, string phuong,string diachi, string phoneNumber, decimal totalPrice)
         {
             try
             {
@@ -64,11 +71,12 @@ namespace EShop.Controllers
                 orderModel.OrderCode = orderCode;
                 orderModel.phoneNumber = phoneNumber;
                 orderModel.CreateDate = DateTime.Now;
-                orderModel.TotalPrice = grandPrice;
+                orderModel.TotalPrice = totalPrice;
                 orderModel.Status = 0;
                 orderModel.Province = tinh;
                 orderModel.District = quan;
                 orderModel.Ward = phuong;
+                orderModel.Address = diachi;
                 _dataContext.Add(orderModel);
 
                 List<CartItemModel> cartItems = HttpContext.Session.GetJson<List<CartItemModel>>("Cart") ?? new List<CartItemModel>();
@@ -90,6 +98,39 @@ namespace EShop.Controllers
             {
                 return StatusCode(500, "Lỗi khi tạo đơn hàng");
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ShippingCount(string tinh, string quan, string phuong)
+        {
+             var existedshipping = await _dataContext.Shippings.FirstOrDefaultAsync(s => s.Province == tinh && s.District == quan && s.Ward == phuong);
+            decimal priceShipping = 0;
+            if(existedshipping != null)
+            {
+                priceShipping = existedshipping.Price;
+            }
+            else
+            {
+                priceShipping = 50000;
+            } 
+            var shippingPriceJSon = JsonConvert.SerializeObject(priceShipping);
+            try
+            {
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.Now.AddMinutes(30),
+                    Secure = true,
+                };
+                Response.Cookies.Append("ShippingPrices", shippingPriceJSon, cookieOptions);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"error adding shipping price {ex.Message}");
+                return StatusCode(500, new { error = "Error processing shipping price" });
+            }
+
+            return Json(new { priceShipping });
         }
     }
 }

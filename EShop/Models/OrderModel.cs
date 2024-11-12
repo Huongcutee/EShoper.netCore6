@@ -13,6 +13,7 @@ namespace EShop.Models
         public string Province { get; set; }
         public string District { get; set; }
         public string Ward { get; set; }
+        public string Address { get; set; }
 
 
         public DateTime CreateDate { get; set; }
@@ -21,6 +22,8 @@ namespace EShop.Models
 
         [Required]
         public string phoneNumber { get; set; }
+        // Liên kết với OrderDetailModel
+        public ICollection<OrderDetailModel> OrderDetailModel { get; set; }
 
     }
 }

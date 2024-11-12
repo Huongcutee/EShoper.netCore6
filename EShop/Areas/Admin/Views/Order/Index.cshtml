@@ -1,1 +1,47 @@
-﻿<h1>Danh sách Order</h1>
+﻿@model IEnumerable<OrderModel>
+@{
+    int index = 1;
+}
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" class="d-none d-md-table-cell">STT</th> 
+                <th scope="col" class="d-none d-md-table-cell">OrderCode</th> 
+                <th scope="col" class="d-none d-lg-table-cell">Tên</th> 
+                <th scope="col" class="d-none d-lg-table-cell">SĐT</th>
+                <th scope="col" class="d-none d-lg-table-cell">Giá</th> 
+                <th scope="col" class="d-none d-lg-table-cell">Huyện</th>
+                <th scope="col" class="d-none d-lg-table-cell">Tỉnh</th>
+                <th scope="col" class="d-none d-lg-table-cell">Thành phố</th>
+                <th scope="col" class="d-none d-lg-table-cell">Địa chỉ</th>
+                <th scope="col" class="d-none d-lg-table-cell">Ngày đặt</th>
+                <th scope="col">Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@index
+                    </th>
+                    <td>@item.OrderCode</td>
+                    <td class="d-none d-md-table-cell ">@item.UserName</td> 
+                    <td class="d-none d-md-table-cell">@item.phoneNumber</td>
+                    <td class="d-none d-lg-table-cell formatPrice">@item.TotalPrice</td>
+                    <td class="d-none d-md-table-cell">@item.District</td>
+                    <td class="d-none d-md-table-cell">@item.Province</td>
+                    <td class="d-none d-md-table-cell">@item.Ward</td>
+                    <td class="d-none d-md-table-cell">@item.Address</td>
+                    <td class="d-none d-md-table-cell">@item.CreateDate</td>
+
+                    <td>
+                        <a class="btn btn-success" asp-action="ViewDetail" asp-controller="Order" asp-route-orderCode="@item.OrderCode">xem chi tiết</a>
+                        <a class="btn btn-danger" asp-action="Remove" asp-controller="Order" asp-route-id="@item.Id">Xóa</a>
+                    </td>
+                </tr>
+                index++;
+            }
+        </tbody>
+    </table>
+</div>

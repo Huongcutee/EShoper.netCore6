@@ -2795,7 +2795,7 @@ h2.title {
 }
 
 .delivery-content-left-adress-input-top-item {
-	width: calc(50% - 12px);
+	width: calc(100% - 12px);
 	margin-top: 10px;
 }
 
@@ -3062,7 +3062,7 @@ h2.title {
 }
 
 .delivery-content-left-adress-input-top-item {
-	width: calc(50% - 12px);
+	width: calc(100% - 12px);
 	margin-top: 10px;
 }
 
@@ -3074,7 +3074,7 @@ h2.title {
 	}
 
 	.delivery-content-left-adress-input-top-item input {
-		width: 100%;
+		width: 80%;
 		height: 40px;
 		padding: 0px 0px 0px 10px;
 		border: 1px solid #ccc;

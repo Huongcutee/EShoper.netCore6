@@ -1,0 +1,32 @@
+﻿@model IEnumerable<OrderDetailModel>
+@{
+    int index = 1;
+}
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" class="d-none d-md-table-cell">STT</th>
+                <th scope="col" class="d-none d-md-table-cell">OrderCode</th>
+                <th scope="col" class="d-none d-lg-table-cell">Mã sản phẩm</th>
+                <th scope="col" class="d-none d-lg-table-cell">Giá</th>
+                <th scope="col" class="d-none d-lg-table-cell">Số lượng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        @index
+                    </th>
+                    <td>@item.OrderCode</td>
+                    <td class="d-none d-lg-table-cell">@item.ProductId</td> <!-- Mã sản phẩm -->
+                    <td class="d-none d-lg-table-cell formatPrice">@item.Price</td> <!-- Giá -->
+                    <td class="d-none d-lg-table-cell">@item.Quantity</td> <!-- Số lượng -->
+                </tr>
+                index++;
+            }
+        </tbody>
+    </table>
+</div>

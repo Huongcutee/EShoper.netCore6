@@ -8,7 +8,6 @@ using EShop.Data;
 
 namespace EShop.Controllers
 {
-    [Authorize]
 	public class CategoryController : Controller
 	{
 		private readonly DataContext _datacontext;

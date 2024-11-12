@@ -10,12 +10,10 @@ namespace EShoper.netCore6.Areas.Admin.Controllers
     {
         private readonly DataContext _datacontext;
 
-
-
 		public IActionResult Index()
         {
-            
-            return View();
+			ViewData["title"] = "Trang chủ";
+			return View();
         }
     }
 }

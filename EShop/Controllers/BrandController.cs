@@ -6,7 +6,6 @@ using EShop.Data;
 
 namespace EShop.Controllers
 {
-    [Authorize]
 	public class BrandController : Controller
 	{
 		private readonly DataContext dataContext;

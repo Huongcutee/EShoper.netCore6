@@ -4,7 +4,6 @@
     int stt = 1;
 }
 
-
 <div class="container">
             <div class="delivery-content row">
                     <!-- Địa chỉ giao hàng  -->
@@ -15,7 +14,6 @@
                             <div class="delivery-content-left-adress-input-top row">
                                 @if(@ViewBag.Name != null)
                                 {
-                            
                                   <div class="delivery-content-left-adress-input-top-item" >
                                     <input required placeholder="Họ tên" value="@ViewBag.Name" type="text" name="name" id="UserName">
                                   </div>
@@ -34,67 +32,65 @@
                                     </div>
                                 }
                                 else
-                                 {
+                                {
                                      <div class="delivery-content-left-adress-input-top-item" >
                                          <input required placeholder="Số điện thoại" value="@ViewBag.PhoneNumber" name="sdt" id="PhoneNumber">
                                      </div>
-                                 }
+                                }
+                                <div >
+                                    <div style="display:flex">
+                                       <div style="width:50%">
+                                           <div class="delivery-content-left-adress-input-top-item">
+                                                <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành">
+                                                    <option value="0">Tỉnh Thành</option>
+                                                </select>
+                                            </div>
 
+                                             <div class="delivery-content-left-adress-input-top-item">
+                                                <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
+                                                    <option value="0">Quận Huyện</option>
+                                                </select>
+                                            </div>
 
-
-
-                               <div class="delivery-content-left-adress-input-top-item">
-                                    <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành">
-                                        <option value="0">Tỉnh Thành</option>
-                                    </select>
-                                </div>
-
-                                 <div class="delivery-content-left-adress-input-top-item">
-                                    <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
-                                        <option value="0">Quận Huyện</option>
-                                    </select>
-                                </div>
-
-                                <div class="delivery-content-left-adress-input-top-item">
-                                    <select class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
-                                        <option value="0">Phường Xã</option>
-                                    </select>
-                                </div>
-
-                                <div class="delivery-content-left-adress-input-bot">
-                                    <input placeholder="Địa chỉ" type="text" name="dia_chi">
-                                </div>
-
-                            </div>
-                             <input id="grandTotal" type="hidden" value="@Model.GrandTotal">
-                            <div class="delivery-content-left-payment">
-                                <h3>Phương thức thanh toán</h3>
-                                <div class="delivery-content-left-payment-content">
-                                    <p>Mọi giao dịch đều được bảo mật và mã hóa. Thông tin thẻ tín dụng sẽ không bao giờ được
-                                        lưu lại.</p>
-                                    <div class="delivery-content-left-payment-content-pick">
-                                        <div class="delivery-content-left-payment-content-pick-item">
-                                            <input type="radio" name="payment_menthods" value="Thanh toán bằng thẻ tín dụng">
-                                            <label>Thanh toán bằng thẻ tín dụng</label>
-                                        </div>
-                                        <div class="delivery-content-left-payment-content-pick-item">
-                                            <input type="radio" name="payment_menthods" value="Thanh toán bằng VNPAY">
-                                            <label>Thanh toán bằng VNPAY</label>
-                                        </div>
-                                        <div class="delivery-content-left-payment-content-pick-item">
-                                            <input type="radio" name="payment_menthods" value="Thanh toán bằng Momo">
-                                            <label>Thanh toán bằng Momo</label>
-                                        </div>
-                                        <div class="delivery-content-left-payment-content-pick-item">
-                                            <input type="radio" name="payment_menthods" value="Thanh toán khi giao hàng">
-                                            <label>Thanh toán khi giao hàng</label>
-                                        </div>
+                                            <div class="delivery-content-left-adress-input-top-item">
+                                                <select class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
+                                                    <option value="0">Phường Xã</option>
+                                                </select>
+                                            </div>
+                                       </div>
+                                       <div style="">
+                                           <div>
+                                               <h3>Tiền ship</h3>
+                                                @if (Model.ShippingPrice > 0)
+                                                {
+                                                    <span>@Model.ShippingPrice.ToString()</span> 
+                                                }
+                                                else
+                                                {
+                                                    <span>Không có tiền ship</span>
+                                                }
+                                           </div>
+                                           <div class="" >
+                                              <button>
+                                                  Xóa shipping
+                                              </button>
+                                           </div>
+                                       </div>
+                                    </div>
+                                    <div class="delivery-content-left-button-dk" style="margin-top:10px" >
+                                            <button id="btnTinhTienShip">
+                                                Tính tiền ship
+                                            </button> 
                                     </div>
                                 </div>
+                                <div class="delivery-content-left-adress-input-bot">
+                                    <input  placeholder="Địa chỉ" value="" type="text" name="diachi" id="dia_chi">
+                                </div>
+                                  <input type="hidden" value="@Model.TotalPrice" name="total" id="totalPrice">
+
                             </div>
-                    </div>
-                    <!-- .End .. -->
-                <!-- Tổng Tiền Giỏ Hàng -->
+
+                                            <!-- Tổng Tiền Giỏ Hàng -->
                 <div class="delivery-content-right">
                     <h3>Tổng tiền giỏ hàng</h3>
                     <table>
@@ -103,13 +99,15 @@
                             <td><b class="formatPrice">@Model.GrandTotal.ToString()</b></td>
                             
                         </tr>
-                        <tr>
-                            <td>Thành tiền</td>
-                            <td><b class="formatPrice">@Model.GrandTotal.ToString()</b></td>
+                        <tr style="justify-content:space-between">
+                            <td>Tiền Ship</td>
+                            <td><b class="formatPrice">@Model.ShippingPrice.ToString()</b></td>
+
                         </tr>
                         <tr>
-                            <td>Tạm tính</td>
-                            <td><b class="formatPrice">@Model.GrandTotal.ToString()</b></td>
+                            <td>Thành tiền</td>
+                            <td><b class="formatPrice">@Model.TotalPrice</b></td>
+                            
                         </tr>
                     </table>
                     <div class="cart-content-right-text row">
@@ -117,12 +115,34 @@
                             <i class="fa-solid fa-circle-exclamation"></i> Miễn <b>đổi trả</b> đối với sản phẩm đồng giá
                             / sale trên 50%
                         </p>
+                
+                     </div>
+                            
                     </div>
+                    <!-- .End .. -->
+                    
+                            <div class="delivery-content-left-payment">
+                                <h3>Phương thức thanh toán</h3>
+                                <div class="delivery-content-left-payment-content">
+                                    <p>Mọi giao dịch đều được bảo mật và mã hóa. Thông tin thẻ tín dụng sẽ không bao giờ được
+                                        lưu lại.</p>
+                                    <div class="delivery-content-left-payment-content-pick">
+                                        <div class="delivery-content-left-payment-content-pick-item">
+                                            <input type="radio" name="payment_menthods" value="Thanh toán bằng VNPAY">
+                                            <label>Thanh toán bằng VNPAY</label>
+                                        </div>
+                                        <div class="delivery-content-left-payment-content-pick-item">
+                                            <input type="radio" name="payment_menthods" value="Thanh toán khi giao hàng">
+                                            <label>Thanh toán khi giao hàng</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
                     <div class="cart-content-right-button">
                         <input type="button" value="HOÀN THÀNH" id="btn-add-order">
                     </div>
-                </div>
-                <!-- End -->
             </div>
     <!-- Hiển thị sản phẩm  -->
     <div class="">
@@ -162,66 +182,11 @@
 </div>
     <!-- End  -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+
 <script>
-    function showProducts() {
-        var productInfo = document.getElementById("productInfo");
-        var showButton = document.getElementById("showButton");
-        var hideButton = document.getElementById("hideButton");
 
-
-        productInfo.classList.add("show"); // Hiển thị sản phẩm
-        productInfo.style.display = "block"; // Đảm bảo nó hiện ra
-        showButton.style.display = "none"; // Ẩn nút hiển thị
-        hideButton.style.display = "block"; // Hiện nút ẩn
-    }
-
-    function hideProducts() {
-        var productInfo = document.getElementById("productInfo");
-        var showButton = document.getElementById("showButton");
-        var hideButton = document.getElementById("hideButton");
-
-        productInfo.classList.remove("show"); // Ẩn sản phẩm
-        productInfo.style.display = "none"; // Ẩn div sản phẩm
-        showButton.style.display = "block"; // Hiện nút hiển thị
-        hideButton.style.display = "none"; // Ẩn nút ẩn
-    }
-
-
-    
-    $("#btn-add-order").click(function () {
-        var userName = $("#UserName").val();
-        var phoneNumber = $("#PhoneNumber").val();
-        var tinh = $("#tinh").find('option:selected').text();
-        var quan = $('#quan').find('option:selected').text();
-        var phuong = $('#phuong').find('option:selected').text();
-        var grandPrice = $('#grandTotal').val();
-        
-        if (tinh == '' || quan == '' || phuong == '' || userName == '' || phoneNumber == '' || grandPrice == null || userName == '') {
-            alert("Vui lòng nhập đầy đủ trường dữ liệu");
-        }
-        else {
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("StoreOrder", "Order")",
-                data: { tinh: tinh, quan: quan, phuong: phuong, userName: userName, phoneNumber: phoneNumber, grandPrice: grandPrice },
-                success: function (result) 
-                {
-                    if (result.success) {
-                        alert("Thêm đơn hàng thành công");
-                        window.location.href = "@Url.Action("Index", "Home")";
-                    } else if (result.duplicate) {
-                        alert("Dữ liệu trùng lặp");
-                    }
-                },
-                error: function (error) {
-                    console.error("Lỗi khi gửi yêu cầu AJAX", error);  // Log lỗi để dễ debug
-                    alert("Đã xảy ra lỗi khi đặt hàng");
-                }
-            });
-        }
-    });
-
-
+    // get tinh phuong xa
     $(document).ready(function () {
         //Lấy tỉnh thành
         $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
@@ -260,10 +225,94 @@
         });
     });
 
+    // tinh tien shiping
+    $('#btnTinhTienShip').click(function () {
+        var tinh = $("#tinh").find('option:selected').text();
+        var quan = $('#quan').find('option:selected').text();
+        var phuong = $('#phuong').find('option:selected').text();
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("ShippingCount", "Order")",
+            data: { tinh: tinh, quan: quan, phuong: phuong },
+            success: function (result) {
+                if (result) {
+                    location.reload();
+                }
+
+            }
+        })
+    })
+
+    // order bằng tiền mặt
+    function OrderByCOD() {
+        var userName = $("#UserName").val();
+        var phoneNumber = $("#PhoneNumber").val();
+        var tinh = $("#tinh").find('option:selected').text();
+        var quan = $('#quan').find('option:selected').text();
+        var phuong = $('#phuong').find('option:selected').text();
+        var diachi = $('#dia_chi').val();
+        var totalPrice = $('#totalPrice').val();
+
+        if (tinh == '0' || quan == '0' || phuong == '0' || userName == '' || phoneNumber == '' || diachi == '' || totalPrice == null || userName == '') {
+            alert("Vui lòng nhập đầy đủ trường dữ liệu");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("StoreOrder", "Order")",
+                data: { tinh: tinh, quan: quan, phuong: phuong, diachi: diachi, userName: userName, phoneNumber: phoneNumber, totalPrice: totalPrice },
+                success: function (result) {
+                    if (result.success) {
+                        alert("Thêm đơn hàng thành công");
+                        window.location.href = "@Url.Action("Index", "Home")";
+                    } else if (result.duplicate) {
+                        alert("Dữ liệu trùng lặp");
+                    }
+                },
+                error: function (error) {
+                    console.error("Lỗi khi gửi yêu cầu AJAX", error);
+                    alert("Đã xảy ra lỗi khi đặt hàng");
+                }
+            });
+        }
+    }
+
+
+
+    // click order 
+    $("#btn-add-order").click(function () {
+        var paymentMenthods = document.querySelector('input[name="payment_menthods"]:checked');
+        if (!paymentMenthods) {
+            alert("Vui lòng chọn phương thức thanh toán.");
+            return false;
+        }
+        if (paymentMenthods.value == "Thanh toán bằng VNPAY") {
+            window.location.href = ""@Url.Action("VnpayPayment", "Payment")";
+        }
+        else{
+            OrderByCOD();
+        }
+        
+        // an hien san pham
+        function showProducts() {
+            var productInfo = document.getElementById("productInfo");
+            var showButton = document.getElementById("showButton");
+            var hideButton = document.getElementById("hideButton");
+
+
+            productInfo.classList.add("show");
+            productInfo.style.display = "block";
+            showButton.style.display = "none";
+            hideButton.style.display = "block";
+        }
+        function hideProducts() {
+            var productInfo = document.getElementById("productInfo");
+            var showButton = document.getElementById("showButton");
+            var hideButton = document.getElementById("hideButton");
+
+            productInfo.classList.remove("show");
+            productInfo.style.display = "none";
+            showButton.style.display = "block";
+            hideButton.style.display = "none";
+        }
 </script>
-
-
-
-
-
-

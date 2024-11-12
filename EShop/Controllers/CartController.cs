@@ -9,7 +9,6 @@ using EShop.Data;
 
 namespace EShop.Controllers
 {
-    [Authorize]
 	public class CartController : Controller
 	{
 	    private readonly DataContext _dataContext;
@@ -136,6 +135,12 @@ namespace EShop.Controllers
 				_logger.LogError(ex, "Lỗi xóa sản phẩm");
 			}
 			return RedirectToAction("Index");
+		}
+		[HttpGet]
+		public IActionResult GetCartCount()
+		{
+			List<CartItemModel> cartItems = HttpContext.Session.GetJson<List<CartItemModel>>("Cart") ?? new List<CartItemModel>();
+			return Json(cartItems.Count);
 		}
 	}
 }

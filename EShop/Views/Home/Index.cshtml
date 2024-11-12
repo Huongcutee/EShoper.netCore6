@@ -1,5 +1,4 @@
-﻿@model IEnumerable<ProductModel>
-<style>
+﻿<style>
 	#product{
 		height: 420px;
 	}
@@ -93,7 +92,7 @@
 											<h2 class="formatPrice">@item.Price</h2>
 												<p>Tên: @item.Name</p>
 												<p>Thương hiệu: @item.Brand.Name</p>
-												<a asp-action="Add" asp-controller="Cart" asp-route-Id="@item.Id" class="btn btn-default add-to-cart">
+											<a asp-action="Add" asp-controller="Cart" asp-route-Id="@item.Id" class="btn btn-default add-to-cart" id="add-to-cart">
 													<i class="fa fa-shopping-cart"></i>Add to cart
 												</a>
 										</div>
@@ -106,4 +105,6 @@
 			</div>
 		</div>
 	</div>
+	
 </section>
+

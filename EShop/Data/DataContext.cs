@@ -23,7 +23,14 @@ namespace EShop.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<OrderProductForGraph>().HasNoKey();
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<OrderModel>()
+            .HasMany(o => o.OrderDetailModel)    
+            .WithOne()                          
+            .HasForeignKey(od => od.OrderCode)   
+            .HasPrincipalKey(o => o.OrderCode)  
+            .OnDelete(DeleteBehavior.Cascade);
         }
+       
 
     }
 }
